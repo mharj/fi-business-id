@@ -15,6 +15,7 @@ describe('test business ID', () => {
 		expect(isValidBusinessId('0725267-3')).to.be.eq(true);
 		expect(isValidBusinessId('1456344-5')).to.be.eq(true);
 		expect(isValidBusinessId('2729069-3')).to.be.eq(true);
+		expect(isValidBusinessId('helloworld-4')).to.be.eq(false);
 	});
 	it('should validate old business ID', () => {
 		expect(isValidBusinessId('737546-2')).to.be.eq(true);
