@@ -1,0 +1,20 @@
+{
+	"name": "fi-business-id",
+	"dockerFile": "Dockerfile",
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"ms-vscode.vscode-typescript-tslint-plugin",
+		"hbenl.vscode-mocha-test-adapter",
+		"esbenp.prettier-vscode",
+		"hbenl.vscode-test-explorer"
+	],
+	// "forwardPorts": [],
+	"postCreateCommand": "npm install",
+	"remoteUser": "node"
+}
+
+
+
