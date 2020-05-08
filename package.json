@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run test && npm run build",
-    "test": "nyc mocha test/*.ts"
+    "test": "nyc mocha test/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,14 @@
   "keywords": [
     "businessid"
   ],
+  "mocha": {
+    "exit": true,
+    "recursive": true,
+    "require": [
+      "ts-node/register",
+      "source-map-support/register"
+    ]
+  },
   "author": "mharj",
   "license": "MIT",
   "bugs": {
