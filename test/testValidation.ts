@@ -21,4 +21,7 @@ describe('test business ID', () => {
 		expect(isValidBusinessId('737546-2')).to.be.eq(true);
 		expect(isValidBusinessId('737546-9')).to.be.eq(false);
 	});
+	it('should fail to build broken business ID', () => {
+		expect(buildBusinessId.bind(null, 'ASD')).to.throw(Error, 'not valid business id');
+	});
 });

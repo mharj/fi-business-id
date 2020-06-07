@@ -8,6 +8,7 @@ const pad = (value: number) => {
 };
 
 const buildCheckSum = (data: number[]) => {
+	/* istanbul ignore if */
 	if (data.length !== 7) {
 		throw new Error('not valid business id');
 	}
@@ -15,14 +16,14 @@ const buildCheckSum = (data: number[]) => {
 };
 
 export const buildBusinessId = (idData: string): string => {
-	if ( ! idData.match(preFilter) ) {
+	if (!idData.match(preFilter)) {
 		throw new Error('not valid business id');
 	}
 	return idData + '-' + buildCheckSum(idData.split('').map((c) => parseInt(c, 10)));
 };
 
 export const isValidBusinessId = (businessId: string): boolean => {
-	if ( ! businessId.match(preBusinessIdFilter) ) {
+	if (!businessId.match(preBusinessIdFilter)) {
 		return false;
 	}
 	let idToCompare = businessId;
