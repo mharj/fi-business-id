@@ -1,63 +1,69 @@
 {
-  "name": "mharj-fi-business-id",
-  "version": "0.0.4",
-  "description": "Finnish Business ID (Y-tunnus) validation and builder",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run test && npm run build",
-    "test": "nyc mocha test/**/*.ts",
-    "test-azure": "nyc mocha --reporter mocha-junit-reporter test/**/*.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mharj/fi-business-id.git"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "businessid"
-  ],
-  "mocha": {
-    "exit": true,
-    "recursive": true,
-    "require": [
-      "ts-node/register",
-      "source-map-support/register"
-    ]
-  },
-  "author": "mharj",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mharj/fi-business-id/issues"
-  },
-  "homepage": "https://github.com/mharj/fi-business-id#readme",
-  "nyc": {
-    "extension": [
-      ".ts"
+    "name": "mharj-fi-business-id",
+    "version": "0.0.4",
+    "description": "Finnish Business ID (Y-tunnus) validation and builder",
+    "main": "dist/index.js",
+    "module": "dist/esm/index.js",
+    "unpkg": "dist/umd/index.js",
+    "scripts": {
+        "build": "tsc && rollup -c",
+        "prepublishOnly": "npm run test && npm run build",
+        "test": "nyc mocha test/**/*.ts",
+        "test-azure": "nyc mocha --reporter mocha-junit-reporter test/**/*.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mharj/fi-business-id.git"
+    },
+    "files": [
+        "dist"
     ],
-    "include": [
-      "src"
+    "keywords": [
+        "businessid"
     ],
-    "reporter": [
-      "text",
-      "lcovonly"
-    ],
-    "all": true
-  },
-  "devDependencies": {
-    "@types/chai": "^4.2.11",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^12.12.44",
-    "chai": "^4.2.0",
-    "mocha": "^7.2.0",
-    "mocha-junit-reporter": "^1.23.3",
-    "nyc": "^15.1.0",
-    "source-map-support": "^0.5.19",
-    "ts-node": "^8.10.2",
-    "tslint": "^6.1.2",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.9.5"
-  }
+    "mocha": {
+        "exit": true,
+        "recursive": true,
+        "require": [
+            "ts-node/register",
+            "source-map-support/register"
+        ]
+    },
+    "author": "mharj",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mharj/fi-business-id/issues"
+    },
+    "homepage": "https://github.com/mharj/fi-business-id#readme",
+    "nyc": {
+        "extension": [
+            ".ts"
+        ],
+        "include": [
+            "src"
+        ],
+        "reporter": [
+            "text",
+            "lcovonly"
+        ],
+        "all": true
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.11",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^12.12.47",
+        "chai": "^4.2.0",
+        "mocha": "^8.0.1",
+        "mocha-junit-reporter": "^2.0.0",
+        "nyc": "^15.1.0",
+        "rollup": "^2.16.1",
+        "rollup-plugin-sourcemaps": "^0.6.2",
+        "rollup-plugin-terser": "^6.1.0",
+        "rollup-plugin-typescript2": "^0.27.1",
+        "source-map-support": "^0.5.19",
+        "ts-node": "^8.10.2",
+        "tslint": "^6.1.2",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.9.5"
+    }
 }
