@@ -8,8 +8,8 @@
     "scripts": {
         "build": "tsc && rollup -c",
         "prepublishOnly": "npm run test && npm run build",
-        "test": "nyc mocha test/**/*.ts",
-        "test-azure": "nyc mocha --reporter mocha-junit-reporter test/**/*.ts"
+        "test": "nyc mocha",
+        "test-azure": "nyc mocha --reporter mocha-junit-reporter"
     },
     "repository": {
         "type": "git",
@@ -23,10 +23,18 @@
     ],
     "mocha": {
         "exit": true,
+        "extension": [
+            "ts",
+            "js"
+        ],
         "recursive": true,
         "require": [
             "ts-node/register",
             "source-map-support/register"
+        ],
+        "reporters": [
+            "spec",
+            "mocha-junit-reporter"
         ]
     },
     "author": "mharj",
