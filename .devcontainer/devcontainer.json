@@ -2,7 +2,7 @@
 	"name": "fi-business-id",
 	"dockerFile": "Dockerfile",
 	"settings": { 
-		"terminal.integrated.shell.linux": "/bin/bash"
+		"terminal.integrated.defaultProfile.linux": "bash"
 	},
 	"extensions": [
 		"dbaeumer.vscode-eslint",
