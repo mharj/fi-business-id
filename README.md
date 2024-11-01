@@ -20,7 +20,7 @@ console.log(buildBusinessId('1572860'));
 	<head></head>
 	<body>
 		<script type="module">
-			import {buildBusinessId, isValidBusinessId} from 'https://unpkg.com/mharj-fi-business-id@0.0.5/dist/index.mjs';
+			import {buildBusinessId, isValidBusinessId} from 'https://unpkg.com/mharj-fi-business-id@latest/dist/index.mjs';
 			console.log(isValidBusinessId('1572860-0'));
 			console.log(buildBusinessId('1572860'));
 		</script>
