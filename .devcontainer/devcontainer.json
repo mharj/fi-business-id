@@ -1,20 +1,30 @@
 {
-	"name": "fi-business-id",
-	"dockerFile": "Dockerfile",
-	"settings": { 
-		"terminal.integrated.defaultProfile.linux": "bash"
-	},
-	"extensions": [
-		"dbaeumer.vscode-eslint",
-		"ms-vscode.vscode-typescript-tslint-plugin",
-		"esbenp.prettier-vscode",
-		"hbenl.vscode-test-explorer",
-		"hbenl.vscode-mocha-test-adapter"
-	],
+	"name": "mharj-fi-business-id",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"mutantdino.resourcemonitor",
+				"vitest.explorer"
+			]
+		}
+	}
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-	"postCreateCommand": "npm install",
-	"remoteUser": "node"
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "yarn install",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
-
-
-
