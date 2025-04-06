@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {buildBusinessId, type FiBusinessId, getBaseId, getMultiplier, isValidBusinessId} from '../src';
+import {buildBusinessId, FiBusinessId, FiBusinessIdError, getBaseId, getMultiplier, isValidBusinessId} from '../src';
 
 type CustomBrand = {__T: 'FiBusinessId'};
 
@@ -12,10 +12,10 @@ describe('test business ID', () => {
 			expect(buildBusinessId('0')).to.be.eq('0000000-0');
 		});
 		it('should fail to build broken business ID', () => {
-			expect(() => buildBusinessId('ASD')).to.throw(Error, 'is not valid Finnish Business ID');
-			expect(buildBusinessId.bind(null, -1)).to.throw(Error, 'is not valid Finnish Business ID');
-			expect(buildBusinessId.bind(null, 10000000)).to.throw(Error, 'is not valid Finnish Business ID');
-			expect(buildBusinessId.bind(null, null)).to.throw(Error, 'is not valid Finnish Business ID');
+			expect(() => buildBusinessId('ASD')).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
+			expect(buildBusinessId.bind(null, -1)).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
+			expect(buildBusinessId.bind(null, 10000000)).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
+			expect(buildBusinessId.bind(null, null)).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
 		});
 	});
 	describe('test validate business ID', () => {
@@ -47,8 +47,19 @@ describe('test business ID', () => {
 			expect(() => getMultiplier(-1)).to.throw(RangeError, 'Index out of bounds');
 		});
 		it('should test getBaseId function', () => {
-			expect(() => getBaseId('' as `${number}-${number}`)).to.throw(Error, 'is not valid Finnish Business ID');
+			expect(() => getBaseId('' as `${number}-${number}`)).to.throw(FiBusinessIdError, 'No base ID found');
 			expect(getBaseId('1572860-0')).to.be.eq('1572860');
+		});
+	});
+	describe('test FiBusinessId function', () => {
+		it('should test valid values', () => {
+			expect(FiBusinessId('1572860-0')).to.be.eq('1572860-0');
+		});
+		it('should test getBaseId function', () => {
+			expect(() => FiBusinessId<CustomBrand>('1572860-1')).to.throw(FiBusinessIdError, 'Checksum is not valid');
+			expect(() => FiBusinessId<CustomBrand>('test')).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
+			expect(() => FiBusinessId<CustomBrand>(null)).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
+			expect(() => FiBusinessId<CustomBrand>(undefined)).to.throw(FiBusinessIdError, 'Type or syntax is not valid');
 		});
 	});
 });

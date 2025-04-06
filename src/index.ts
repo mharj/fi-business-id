@@ -3,6 +3,15 @@ const multipliers = [7, 9, 10, 5, 8, 4, 2];
 const businessIdPattern = /^\d{6,7}-\d$/;
 const idPattern = /^\d{7}$/;
 
+type Nullish<T> = T | null | undefined;
+
+export class FiBusinessIdError extends TypeError {
+	public constructor(message: string) {
+		super(message);
+		this.name = 'FiBusinessIdError';
+		Error.captureStackTrace(this, this.constructor);
+	}
+}
 /**
  * Finnish Business ID (Y-tunnus) type.
  * @template Brand Optional brand type for a more strict type (e.g., use Zod branded type or custom type).
@@ -65,21 +74,23 @@ function buildCheckSum(data: number[]): number {
 
 /**
  * Normalizes the business ID by adding a leading zero if it has six digits.
+ * @template Brand Optional brand type for a more strict type (e.g., use Zod branded type or custom type).
  * @param {string} businessId The business ID to normalize.
  * @returns {string} The normalized business ID.
  */
-function normalizeBusinessId(businessId: FiBusinessId): FiBusinessId {
-	return businessId.padStart(9, '0') as FiBusinessId;
+function normalizeBusinessId<Brand = `${number}-${number}`>(businessId: FiBusinessId): FiBusinessId<Brand> {
+	return businessId.padStart(9, '0') as FiBusinessId<Brand>;
 }
 
 /**
  * Builds an Error object for an invalid business ID.
  * @param {unknown} value The value that is not a valid business ID.
+ * @param {string} reason The reason why the value is not a valid business ID.
  * @returns {Error} The Error object.
  * @since v0.1.0
  */
-function buildValidationError(value: unknown): Error {
-	return new Error(`${JSON.stringify(value)} is not valid Finnish Business ID`);
+function buildValidationError(value: unknown, reason: string): Error {
+	return new FiBusinessIdError(`${reason}, value: ${JSON.stringify(value)}`);
 }
 
 /**
@@ -92,7 +103,7 @@ function buildValidationError(value: unknown): Error {
 export function getBaseId(businessId: FiBusinessId): string {
 	const baseId = businessId.split('-')[0];
 	if (!baseId) {
-		throw buildValidationError(businessId);
+		throw buildValidationError(businessId, 'No base ID found');
 	}
 	return baseId;
 }
@@ -105,7 +116,7 @@ export function getBaseId(businessId: FiBusinessId): string {
  * @throws Will throw an Error if the ID data is not valid.
  * @since v0.0.1
  */
-export function buildBusinessId<Brand = `${number}-${number}`>(idData: string | number | null | undefined): FiBusinessId<Brand> {
+export function buildBusinessId<Brand = `${number}-${number}`>(idData: Nullish<string> | Nullish<number>): FiBusinessId<Brand> {
 	if (typeof idData === 'string' && idData.length !== 7) {
 		idData = idData.padStart(7, '0');
 	}
@@ -113,7 +124,7 @@ export function buildBusinessId<Brand = `${number}-${number}`>(idData: string | 
 		idData = idData.toString().padStart(7, '0');
 	}
 	if (!isFiBusinessIdBaseType(idData)) {
-		throw buildValidationError(idData);
+		throw buildValidationError(idData, 'Type or syntax is not valid');
 	}
 	return `${idData}-${buildCheckSum(idData.split('').map((c) => parseInt(c, 10))).toString()}` as FiBusinessId<Brand>;
 }
@@ -125,10 +136,31 @@ export function buildBusinessId<Brand = `${number}-${number}`>(idData: string | 
  * @returns {string} True if the business ID is valid, false otherwise.
  * @since v0.0.1
  */
-export function isValidBusinessId<Brand = `${number}-${number}`>(businessId: string | null | undefined): businessId is FiBusinessId<Brand> {
+export function isValidBusinessId<Brand = `${number}-${number}`>(businessId: Nullish<string>): businessId is FiBusinessId<Brand> {
 	if (!isFiBusinessIdType(businessId)) {
 		return false;
 	}
 	const normalizedId = normalizeBusinessId(businessId);
 	return normalizedId === buildBusinessId(getBaseId(normalizedId));
+}
+
+/**
+ * Checks if a given value is a valid Finnish Business ID and returns it with the correct type.
+ * @example
+ * const value: FiBusinessId = FiBusinessId('1234567-8');
+ * @template Brand Optional brand type for a more strict type (e.g., use Zod branded type or custom type).
+ * @param {string | null | undefined} businessId The business ID to validate.
+ * @returns {FiBusinessId<Brand>} The validated business ID.
+ * @throws Will throw an FiBusinessIdError if the business ID is not valid.
+ * @since v0.1.1
+ */
+export function FiBusinessId<Brand = `${number}-${number}`>(businessId: Nullish<string>): FiBusinessId<Brand> {
+	if (!isFiBusinessIdType(businessId)) {
+		throw buildValidationError(businessId, 'Type or syntax is not valid');
+	}
+	const normalizedId = normalizeBusinessId<Brand>(businessId);
+	if (normalizedId !== buildBusinessId(getBaseId(normalizedId))) {
+		throw buildValidationError(businessId, 'Checksum is not valid');
+	}
+	return normalizedId;
 }
