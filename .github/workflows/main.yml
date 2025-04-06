@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 env:
   # Setting an environment variable with the value of a configuration variable
-  PUBLISH_BRANCH: 'refs/heads/master'
+  PUBLISH_BRANCH: 'refs/heads/main'
   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   PACKAGE_NAME: 'unknown'
