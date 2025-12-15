@@ -1,7 +1,7 @@
 name: coverage CI
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - "**/*.ts"
       - "vitest.config.mts"
