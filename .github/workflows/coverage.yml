@@ -2,10 +2,6 @@ name: coverage CI
 on:
   push:
     branches: [main]
-    paths:
-      - "**/*.ts"
-      - "vitest.config.mts"
-      - ".github/workflows/coverage.yml"
 
 permissions:
   contents: read
