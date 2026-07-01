@@ -2,18 +2,22 @@
     "name": "mharj-fi-business-id",
     "version": "0.1.1",
     "description": "Finnish Business ID (Y-tunnus) validation and builder",
-    "main": "./dist/index.js",
+    "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
+    "types": "./dist/index.d.mts",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs"
-        }
+        "import": {
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
+        },
+        "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+        },
+        "default": "./dist/index.mjs"
     },
     "scripts": {
-        "build": "tsup src/index.ts --sourcemap --format cjs,esm --dts --clean",
+        "build": "tsdown src/index.ts --sourcemap --format cjs,esm --dts --clean",
         "prepublishOnly": "npm run build",
         "test": "vitest test --run --no-isolate --coverage",
         "coverage": "vitest test --run --no-isolate --reporter=dot --coverage --coverage.reporter=lcov",
@@ -34,13 +38,14 @@
     },
     "homepage": "https://github.com/mharj/fi-business-id#readme",
     "devDependencies": {
-        "@biomejs/biome": "2.4.4",
+        "@biomejs/biome": "2.5.1",
         "@types/node": "^25.3.2",
-        "@vitest/coverage-v8": "^4.0.18",
+        "@vitest/coverage-v8": "^4.1.9",
         "c8": "^11.0.0",
-        "tsup": "^8.5.1",
-        "typescript": "^5.9.3",
-        "vitest": "^4.0.18"
+        "tsdown": "^0.22.3",
+        "typescript": "^6.0.3",
+        "vite": "^8.1.2",
+        "vitest": "^4.1.9"
     },
     "packageManager": "pnpm@10.34.3+sha512.f2c531b08829d7be7f03c90addc266615f9c5477463e4bf1d275cb263ce9ea57cf0d5599110d94649a9bb3fed9f0b5efcea74a7016b61532a24cb9ad87860c1d"
 }
