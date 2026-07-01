@@ -20,10 +20,7 @@
         "lint": "biome check",
         "validate": "tsc --noEmit"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mharj/fi-business-id.git"
-    },
+    "repository": "github:mharj/fi-business-id",
     "files": [
         "dist"
     ],
@@ -45,5 +42,5 @@
         "typescript": "^5.9.3",
         "vitest": "^4.0.18"
     },
-    "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
+    "packageManager": "pnpm@10.34.3+sha512.f2c531b08829d7be7f03c90addc266615f9c5477463e4bf1d275cb263ce9ea57cf0d5599110d94649a9bb3fed9f0b5efcea74a7016b61532a24cb9ad87860c1d"
 }
