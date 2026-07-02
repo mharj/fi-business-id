@@ -15,7 +15,7 @@ env:
   PUBLISH_BRANCH: "refs/heads/main"
   PACKAGE_NAME: "unknown"
   PACKAGE_VERSION: "unknown"
-  PACKAGE_MANAGER: 'npm'
+  PACKAGE_MANAGER: "npm"
   NPM_VERSION: "unknown"
   HAVE_COVERAGE_SCRIPT: false
   HAVE_VALIDATE_SCRIPT: false
@@ -32,9 +32,8 @@ jobs:
         if: env.PACKAGE_MANAGER == 'pnpm'
       - uses: actions/setup-node@v6
         with:
-          node-version: 'lts/*'
-          registry-url: 'https://registry.npmjs.org'
-
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: ${{ env.PACKAGE_MANAGER }} install
@@ -43,17 +42,13 @@ jobs:
         if: env.HAVE_VALIDATE_SCRIPT == 'true'
         run: ${{ env.PACKAGE_MANAGER }} run validate
 
-      - name: Run unit tests
-        if: env.HAVE_TEST_SCRIPT == 'true'
-        run: ${{ env.PACKAGE_MANAGER }} test
-
       - name: Run linter checks
         if: env.HAVE_LINT_SCRIPT == 'true'
         run: ${{ env.PACKAGE_MANAGER }} run lint --reporter=github
 
-      - name: Run code coverage 
-        if: env.HAVE_COVERAGE_SCRIPT == 'true'
-        run: ${{ env.PACKAGE_MANAGER }} run coverage
+      - name: Run unit tests and code coverage
+        if: env.HAVE_TEST_SCRIPT == 'true'
+        run: ${{ env.PACKAGE_MANAGER }} test
 
       - name: Run and publish code coverage
         if: |
