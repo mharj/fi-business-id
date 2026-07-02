@@ -17,7 +17,6 @@ env:
   PACKAGE_VERSION: "unknown"
   PACKAGE_MANAGER: "npm"
   NPM_VERSION: "unknown"
-  HAVE_COVERAGE_SCRIPT: false
   HAVE_VALIDATE_SCRIPT: false
   HAVE_LINT_SCRIPT: false
   HAVE_TEST_SCRIPT: false
@@ -53,7 +52,7 @@ jobs:
       - name: Run and publish code coverage
         if: |
           github.ref == env.PUBLISH_BRANCH &&
-          env.HAVE_COVERAGE_SCRIPT == 'true'
+          env.HAVE_TEST_SCRIPT == 'true'
         uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
