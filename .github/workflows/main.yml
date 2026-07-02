@@ -49,7 +49,7 @@ jobs:
 
       - name: Run linter checks
         if: env.HAVE_LINT_SCRIPT == 'true'
-        run: ${{ env.PACKAGE_MANAGER }} run lint
+        run: ${{ env.PACKAGE_MANAGER }} run lint -- --reporter=github
 
       - name: Run code coverage 
         if: env.HAVE_COVERAGE_SCRIPT == 'true'
