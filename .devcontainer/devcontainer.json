@@ -1,6 +1,6 @@
 {
 	"name": "mharj-fi-business-id",
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-trixie",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -8,10 +8,12 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				"mutantdino.resourcemonitor",
-				"vitest.explorer"
+				"vitest.explorer",
+				"biomejs.biome",
+				"github.vscode-github-actions"
 			]
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -20,7 +22,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
+	"postCreateCommand": "pnpm i"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

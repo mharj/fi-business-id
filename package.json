@@ -20,7 +20,6 @@
         "build": "tsdown src/index.ts --sourcemap --format cjs,esm --dts --clean",
         "prepublishOnly": "npm run build",
         "test": "vitest test --run --no-isolate --coverage",
-        "coverage": "vitest test --run --no-isolate --reporter=dot --coverage --coverage.reporter=lcov",
         "lint": "biome check",
         "validate": "tsc --noEmit"
     },
